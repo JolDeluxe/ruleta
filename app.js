@@ -12,6 +12,7 @@ const UI = {
     cronometroDiv: document.getElementById('contenedor-cronometro'),
     tiempoDisplay: document.getElementById('tiempo-display'),
     textoPrep: document.getElementById('texto-preparacion'),
+    btnIniciarCrono: document.getElementById('btn-iniciar-crono'),
     btnPausa: document.getElementById('btn-pausa'),
     canvas: document.getElementById('wheel'),
     modalAlerta: document.getElementById('modal-alerta'),
@@ -35,6 +36,7 @@ let opcionesVisuales = [];
 let opcionesReales = [];   
 
 const coloresBase = ['#007bff', '#28a745', '#dc3545', '#ffc107', '#17a2b8', '#6f42c1'];
+const audioAlarma = new Audio('alarma-morning-mix.mp3');
 
 function mostrarAlerta(mensaje) {
     UI.modalMensaje.textContent = mensaje;
@@ -45,7 +47,6 @@ UI.btnModalOk.addEventListener('click', () => {
     UI.modalAlerta.classList.add('oculto');
 });
 
-// Marca el último elemento de cada array en el JSON para dejarlo bloqueado hasta el final
 function marcarUltimos(datos) {
     for (let etapa in datos) {
         for (let nivel in datos[etapa]) {
@@ -77,7 +78,7 @@ async function inicializar() {
     } else {
         const res = await fetch('data.json');
         let dataStr = await res.json();
-        marcarUltimos(dataStr); // Aplicamos la trampa al cargar los datos
+        marcarUltimos(dataStr); 
         estado.datos = dataStr;
     }
 }
@@ -303,15 +304,27 @@ function formatearTiempo(segs) {
 
 function manejarCronometro(segundos) {
     detenerCronometro();
+    audioAlarma.pause();
+    audioAlarma.currentTime = 0;
+
     UI.cronometroDiv.classList.remove('oculto');
     crono.tiempoRestante = segundos;
     UI.tiempoDisplay.textContent = formatearTiempo(segundos);
-    UI.btnPausa.textContent = "Pausar";
-    crono.pausado = false;
     
+    UI.btnIniciarCrono.classList.remove('oculto');
+    UI.btnPausa.classList.add('oculto');
+    UI.textoPrep.textContent = "Presiona iniciar cuando estés listo.";
+    crono.pausado = false;
+}
+
+UI.btnIniciarCrono.addEventListener('click', () => {
+    UI.btnIniciarCrono.classList.add('oculto');
+    UI.btnPausa.classList.remove('oculto');
+    UI.btnPausa.textContent = "Pausar";
+
     let prep = 5;
     UI.textoPrep.textContent = `Preparación: ${prep}s...`;
-    
+
     crono.timeoutPrep = setInterval(() => {
         prep--;
         if (prep > 0) {
@@ -322,7 +335,7 @@ function manejarCronometro(segundos) {
             iniciarConteo();
         }
     }, 1000);
-}
+});
 
 function iniciarConteo() {
     crono.intervalo = setInterval(() => {
@@ -332,6 +345,8 @@ function iniciarConteo() {
             if (crono.tiempoRestante <= 0) {
                 detenerCronometro();
                 UI.textoPrep.textContent = "¡Tiempo terminado!";
+                UI.btnPausa.classList.add('oculto');
+                audioAlarma.play();
             }
         }
     }, 1000);
@@ -360,13 +375,14 @@ UI.btnGirar.addEventListener('click', () => {
     if (opcionesReales.length === 0) return;
 
     detenerCronometro();
+    audioAlarma.pause();
+    audioAlarma.currentTime = 0;
     UI.cronometroDiv.classList.add('oculto');
 
     estado.girando = true;
     UI.btnGirar.disabled = true;
     UI.reto.textContent = "Girando...";
 
-    // --- AQUÍ APLICAMOS LA TRAMPA DEL ÚLTIMO ELEMENTO ---
     const d = estado.datos;
     const e = 'etapa' + estado.etapa;
     const n = 'nivel' + estado.nivel;
@@ -375,16 +391,11 @@ UI.btnGirar.addEventListener('click', () => {
     let normales = d[e][n][jId] || [];
     let mutuos = d[e][n].mutuo || [];
 
-    // Ocultamos el reto con la marca "esUltimo" hasta que sea el único que queda en su lista
     let normalesValidos = normales.length > 1 ? normales.filter(r => !r.esUltimo) : normales;
     let mutuosValidos = mutuos.length > 1 ? mutuos.filter(r => !r.esUltimo) : mutuos;
 
-    // Juntamos las opciones que sí pueden salir en este tiro
     let opcionesSorteo = [...normalesValidos, ...mutuosValidos];
-    
-    // Elegimos al ganador de esta lista ya filtrada
     let retoGanador = opcionesSorteo[Math.floor(Math.random() * opcionesSorteo.length)];
-    // -----------------------------------------------------
 
     let indiceGanador = opcionesVisuales.findIndex(r => r.texto === retoGanador.texto);
 

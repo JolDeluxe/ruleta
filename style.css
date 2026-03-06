@@ -13,14 +13,15 @@ h1 { font-size: 2rem; margin-bottom: 20px; color: #fff; }
 input[type="text"] { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ced4da; background: #fff; color: #495057; font-size: 1rem; }
 
 /* Botones estilo Bootstrap */
-.btn { border: none; border-radius: 5px; padding: 10px 20px; font-size: 1rem; cursor: pointer; font-weight: bold; transition: opacity 0.2s; }
+.btn { border: none; border-radius: 5px; padding: 10px 20px; font-size: 1rem; cursor: pointer; font-weight: bold; transition: opacity 0.2s; margin-bottom: 10px; width: 100%; }
 .btn:hover { opacity: 0.8; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.btn-primary { background-color: #007bff; color: white; width: 100%; margin-bottom: 15px; }
+.btn-primary { background-color: #007bff; color: white; margin-bottom: 15px; }
 .btn-lg { padding: 15px 30px; font-size: 1.2rem; }
 .btn-danger { background-color: #dc3545; color: white; }
 .btn-sm { padding: 8px 15px; font-size: 0.9rem; }
 .btn-warning { background-color: #ffc107; color: #212529; }
+.btn-success { background-color: #28a745; color: white; }
 
 /* Info de Turno */
 .info-turno { margin-bottom: 20px; font-size: 1.2rem; min-height: 60px; }
@@ -43,7 +44,7 @@ input[type="text"] { width: 100%; padding: 10px; margin-bottom: 10px; border-rad
 
 /* Cronómetro */
 #contenedor-cronometro { background: #212529; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #495057; }
-#texto-preparacion { color: #ffc107; font-size: 1rem; }
+#texto-preparacion { color: #ffc107; font-size: 1rem; margin-bottom: 10px; }
 #tiempo-display { font-size: 3rem; font-weight: bold; margin: 10px 0; color: #17a2b8; letter-spacing: 2px; }
 
 /* Modal Alerta */
