@@ -31,8 +31,8 @@ let estado = {
 
 let crono = { tiempoRestante: 0, intervalo: null, pausado: false, timeoutPrep: null };
 let rotacionTotal = 0;
-let opcionesVisuales = []; // Todos los retos que se ven pintados
-let opcionesReales = [];   // Los retos en los que de verdad puede caer
+let opcionesVisuales = []; 
+let opcionesReales = [];   
 
 const coloresBase = ['#007bff', '#28a745', '#dc3545', '#ffc107', '#17a2b8', '#6f42c1'];
 
@@ -44,6 +44,20 @@ function mostrarAlerta(mensaje) {
 UI.btnModalOk.addEventListener('click', () => {
     UI.modalAlerta.classList.add('oculto');
 });
+
+// Marca el último elemento de cada array en el JSON para dejarlo bloqueado hasta el final
+function marcarUltimos(datos) {
+    for (let etapa in datos) {
+        for (let nivel in datos[etapa]) {
+            for (let jugador in datos[etapa][nivel]) {
+                let arr = datos[etapa][nivel][jugador];
+                if (Array.isArray(arr) && arr.length > 0) {
+                    arr[arr.length - 1].esUltimo = true;
+                }
+            }
+        }
+    }
+}
 
 async function inicializar() {
     const guardado = localStorage.getItem('ruletaJuego');
@@ -62,7 +76,9 @@ async function inicializar() {
         actualizarUI();
     } else {
         const res = await fetch('data.json');
-        estado.datos = await res.json();
+        let dataStr = await res.json();
+        marcarUltimos(dataStr); // Aplicamos la trampa al cargar los datos
+        estado.datos = dataStr;
     }
 }
 
@@ -112,7 +128,6 @@ function espaciarMutuos(normales, mutuos) {
     return resultado;
 }
 
-// Junta nivel 1 y nivel 2 para pintar la ruleta entera
 function obtenerOpcionesVisuales() {
     const d = estado.datos;
     const e = 'etapa' + estado.etapa;
@@ -135,7 +150,6 @@ function obtenerOpcionesVisuales() {
     }
 }
 
-// Saca solo los del nivel activo para el sorteo real
 function obtenerOpcionesReales() {
     const d = estado.datos;
     const e = 'etapa' + estado.etapa;
@@ -246,7 +260,6 @@ function verificarEtapas() {
 function avanzarTurno() {
     estado.turnoIdx = estado.turnoIdx === 0 ? 1 : 0;
     
-    // Si el jugador ya no tiene retos reales en su turno, lo saltamos
     if (obtenerOpcionesReales().length === 0) {
         estado.turnoIdx = estado.turnoIdx === 0 ? 1 : 0;
     }
@@ -353,10 +366,26 @@ UI.btnGirar.addEventListener('click', () => {
     UI.btnGirar.disabled = true;
     UI.reto.textContent = "Girando...";
 
-    // TRAMPA: Elegimos el ganador desde las opciones "Reales" (Solo las del nivel actual)
-    let retoGanador = opcionesReales[Math.floor(Math.random() * opcionesReales.length)];
+    // --- AQUÍ APLICAMOS LA TRAMPA DEL ÚLTIMO ELEMENTO ---
+    const d = estado.datos;
+    const e = 'etapa' + estado.etapa;
+    const n = 'nivel' + estado.nivel;
+    const jId = estado.jugadores[estado.turnoIdx].id;
+
+    let normales = d[e][n][jId] || [];
+    let mutuos = d[e][n].mutuo || [];
+
+    // Ocultamos el reto con la marca "esUltimo" hasta que sea el único que queda en su lista
+    let normalesValidos = normales.length > 1 ? normales.filter(r => !r.esUltimo) : normales;
+    let mutuosValidos = mutuos.length > 1 ? mutuos.filter(r => !r.esUltimo) : mutuos;
+
+    // Juntamos las opciones que sí pueden salir en este tiro
+    let opcionesSorteo = [...normalesValidos, ...mutuosValidos];
     
-    // Buscamos en qué rebanada de la ruleta visual quedó dibujado ese reto
+    // Elegimos al ganador de esta lista ya filtrada
+    let retoGanador = opcionesSorteo[Math.floor(Math.random() * opcionesSorteo.length)];
+    // -----------------------------------------------------
+
     let indiceGanador = opcionesVisuales.findIndex(r => r.texto === retoGanador.texto);
 
     let tiempoGiro = 4000;
@@ -367,31 +396,27 @@ UI.btnGirar.addEventListener('click', () => {
         UI.canvas.style.transition = `transform ${tiempoGiro}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
         UI.canvas.style.transform = `rotate(${rotacionTotal}deg)`;
     } else {
-        // Cálculo matemático para detener la ruleta exactamente en el ganador
         UI.canvas.style.transition = `transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)`;
         
         const gradosPorRebanada = 360 / opcionesVisuales.length;
         const anguloCentroRebanada = (indiceGanador * gradosPorRebanada) + (gradosPorRebanada / 2);
         
-        // 270 grados es donde está el pin indicador en la parte superior
         const rotacionRequerida = (270 - anguloCentroRebanada + 360) % 360;
         const rotacionActual = rotacionTotal % 360;
         
         let diferencia = rotacionRequerida - rotacionActual;
         if (diferencia < 0) diferencia += 360;
 
-        // Añadimos un pequeño desvío al azar para que no caiga siempre milimétricamente al centro
         let offsetRandom = (Math.random() - 0.5) * (gradosPorRebanada * 0.7);
         diferencia += offsetRandom;
 
-        // Sumamos 5 vueltas completas más la diferencia calculada
         rotacionTotal += (360 * 5) + diferencia;
         
         UI.canvas.style.transform = `rotate(${rotacionTotal}deg)`;
     }
 
     setTimeout(() => {
-        finalizarGiro(retoGanador); // Usamos el ganador pre-calculado
+        finalizarGiro(retoGanador);
     }, tiempoGiro);
 });
 

@@ -27,12 +27,12 @@
   "etapa2": {
     "nivel1": {
       "jugador1": [
-        { "texto": "Tocar sin ropa interior de manera lenta", "tiempo": null },
-        { "texto": "Da ligeros besos en la parte abajo", "tiempo": null }
+        { "texto": "Tocar sin ropa interior de manera lenta", "tiempo": 240 },
+        { "texto": "Da ligeros besos en la parte abajo", "tiempo": 240 }
       ],
       "jugador2": [
-        { "texto": "Tocar sin ropa interior de manera lenta", "tiempo": null },
-        { "texto": "Tocar con los pechos (una rusa)", "tiempo": null }
+        { "texto": "Tocar sin ropa interior de manera lenta", "tiempo": 240 },
+        { "texto": "Tocar con los pechos (una rusa)", "tiempo": 180 }
       ],
       "mutuo": [
         { "texto": "Tocarse al mismo tiempo cada quien", "tiempo": 120 }
@@ -40,13 +40,13 @@
     },
     "nivel2": {
       "jugador1": [
-        { "texto": "Dar sexo oral", "tiempo": null },
-        { "texto": "Tocar con los dedos", "tiempo": null },
-        { "texto": "Tocar con juguete", "tiempo": null }
+        { "texto": "Dar sexo oral", "tiempo": 180 },
+        { "texto": "Tocar con los dedos", "tiempo": 180 },
+        { "texto": "Tocar con juguete", "tiempo": 180 }
       ],
       "jugador2": [
-        { "texto": "Dar sexo oral", "tiempo": null },
-        { "texto": "Tocar de manera intensa sin hacer venir", "tiempo": null }
+        { "texto": "Dar sexo oral", "tiempo": 180 },
+        { "texto": "Tocar de manera intensa sin hacer venir", "tiempo":  60}
       ],
       "mutuo": [
         { "texto": "Hacer el 69", "tiempo": 120 },
