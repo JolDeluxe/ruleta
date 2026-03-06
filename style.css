@@ -1,0 +1,56 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+body { background-color: #212529; color: #f8f9fa; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+
+.container { width: 100%; max-width: 600px; }
+.tarjeta { background-color: #343a40; border-radius: 12px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
+
+h1 { font-size: 2rem; margin-bottom: 20px; color: #fff; }
+#titulo-etapa { color: #dc3545; transition: 0.3s; }
+
+/* Formulario */
+.jugador-form { background: #495057; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+.jugador-form h3 { margin-bottom: 10px; font-size: 1.2rem; }
+input[type="text"] { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ced4da; background: #fff; color: #495057; font-size: 1rem; }
+
+/* Botones estilo Bootstrap */
+.btn { border: none; border-radius: 5px; padding: 10px 20px; font-size: 1rem; cursor: pointer; font-weight: bold; transition: opacity 0.2s; }
+.btn:hover { opacity: 0.8; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary { background-color: #007bff; color: white; width: 100%; margin-bottom: 15px; }
+.btn-lg { padding: 15px 30px; font-size: 1.2rem; }
+.btn-danger { background-color: #dc3545; color: white; }
+.btn-sm { padding: 8px 15px; font-size: 0.9rem; }
+.btn-warning { background-color: #ffc107; color: #212529; }
+
+/* Info de Turno */
+.info-turno { margin-bottom: 20px; font-size: 1.2rem; min-height: 60px; }
+.resaltado { font-weight: bold; color: #ffc107; font-size: 1.4rem; }
+.sub-turno { font-size: 0.95rem; color: #adb5bd; margin-top: 5px; transition: 0.3s; }
+
+/* Clases especiales para retos MUTUOS */
+.mutuo-text { font-size: 1.4rem; font-weight: 900; color: #ffc107; text-transform: uppercase; letter-spacing: 2px; display: block; margin-top: 5px; }
+.resultado-mutuo { border-left-color: #6c757d !important; background-color: #2b3035 !important; }
+.resultado-mutuo #texto-reto { color: #ffc107; font-weight: bold; }
+
+/* Ruleta */
+#wheel-wrapper { position: relative; width: 320px; height: 320px; margin: 0 auto 30px auto; }
+#wheel-pin { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 40px; color: #f8f9fa; z-index: 10; text-shadow: 0 4px 6px rgba(0,0,0,0.8); }
+#wheel { width: 100%; height: 100%; border-radius: 50%; border: 6px solid #f8f9fa; box-shadow: 0 0 15px rgba(0,0,0,0.5); background-color: #fff; }
+
+/* Resultados */
+#resultado-box { background: #495057; padding: 20px; border-radius: 8px; margin-bottom: 20px; min-height: 80px; display: flex; align-items: center; justify-content: center; border-left: 5px solid #007bff; transition: 0.3s; }
+#texto-reto { font-size: 1.2rem; font-weight: 500; }
+
+/* Cronómetro */
+#contenedor-cronometro { background: #212529; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #495057; }
+#texto-preparacion { color: #ffc107; font-size: 1rem; }
+#tiempo-display { font-size: 3rem; font-weight: bold; margin: 10px 0; color: #17a2b8; letter-spacing: 2px; }
+
+/* Modal Alerta */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.modal-content { background: #343a40; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; border: 2px solid #dc3545; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+.modal-content h2 { color: #dc3545; margin-bottom: 15px; font-size: 1.8rem; }
+.modal-content p { font-size: 1.1rem; margin-bottom: 20px; line-height: 1.5; color: #f8f9fa; }
+.modal-content .btn { margin-bottom: 0; }
+
+.oculto { display: none !important; }

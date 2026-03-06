@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruleta de Pareja</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="pantalla-inicio" class="tarjeta">
+            <h1>Configurar Jugadores</h1>
+            
+            <div class="jugador-form">
+                <h3>Jugador 1</h3>
+                <input type="text" id="nombre-j1" placeholder="Nombre Jugador 1" required>
+            </div>
+
+            <div class="jugador-form">
+                <h3>Jugador 2</h3>
+                <input type="text" id="nombre-j2" placeholder="Nombre Jugador 2" required>
+            </div>
+
+            <button id="btn-comenzar" class="btn btn-primary">Comenzar Juego</button>
+        </div>
+
+        <div id="pantalla-juego" class="oculto tarjeta">
+            <h1 id="titulo-etapa">Etapa 1: Tranquila</h1>
+            <div class="info-turno">
+                <p>Turno de: <span id="nombre-turno" class="resaltado"></span></p>
+                <p class="sub-turno" id="sub-turno-box">Acción dirigida a: <span id="nombre-objetivo"></span></p>
+            </div>
+
+            <div id="wheel-wrapper">
+                <div id="wheel-pin">▼</div>
+                <canvas id="wheel" width="400" height="400"></canvas>
+            </div>
+
+            <div id="resultado-box">
+                <p id="texto-reto">Presiona Iniciar para girar la ruleta</p>
+            </div>
+
+            <div id="contenedor-cronometro" class="oculto">
+                <p id="texto-preparacion"></p>
+                <div id="tiempo-display">00:00</div>
+                <button id="btn-pausa" class="btn btn-warning">Pausar</button>
+            </div>
+
+            <div class="controles">
+                <button id="btn-girar" class="btn btn-primary btn-lg">Iniciar</button>
+                <button id="btn-reiniciar" class="btn btn-danger btn-sm">Reiniciar todo</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-alerta" class="modal-overlay oculto">
+        <div class="modal-content">
+            <h2>¡Atención!</h2>
+            <p id="modal-mensaje">Mensaje de alerta</p>
+            <button id="btn-modal-ok" class="btn btn-primary">Entendido</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

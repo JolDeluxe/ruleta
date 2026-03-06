@@ -1,0 +1,57 @@
+{
+  "etapa1": {
+    "nivel1": {
+      "jugador1": [
+        { "texto": "Besos apasionado", "tiempo": 180},
+        { "texto": "Besos en el cuello", "tiempo": 180}
+      ],
+      "jugador2": [
+        { "texto": "Besos en el cuello", "tiempo": 180}
+        
+      ]
+    },
+    "nivel2": {
+      "jugador1": [
+        { "texto": "Masaje erotico con aceite", "tiempo": 240 },    
+        { "texto": "Besos y mordidas en la entrepierna", "tiempo": 240 },
+        { "texto": "Masajear y besar pechos suavemente", "tiempo": 180 },
+        { "texto": "Tocar por encima de la ropa interior", "tiempo": 180 }
+      ],
+      "jugador2": [
+        { "texto": "Masaje erotico con aceite", "tiempo": 240 },
+        { "texto": "Besos y mordidas en la entrepierna", "tiempo": 240 },
+        { "texto": "Tocar por encima de la ropa interior", "tiempo": 180 }
+      ]
+    }
+  },
+  "etapa2": {
+    "nivel1": {
+      "jugador1": [
+        { "texto": "Tocar sin ropa interior de manera lenta", "tiempo": null },
+        { "texto": "Da ligeros besos en la parte abajo", "tiempo": null }
+      ],
+      "jugador2": [
+        { "texto": "Tocar sin ropa interior de manera lenta", "tiempo": null },
+        { "texto": "Tocar con los pechos (una rusa)", "tiempo": null }
+      ],
+      "mutuo": [
+        { "texto": "Tocarse al mismo tiempo cada quien", "tiempo": 120 }
+      ]
+    },
+    "nivel2": {
+      "jugador1": [
+        { "texto": "Dar sexo oral", "tiempo": null },
+        { "texto": "Tocar con los dedos", "tiempo": null },
+        { "texto": "Tocar con juguete", "tiempo": null }
+      ],
+      "jugador2": [
+        { "texto": "Dar sexo oral", "tiempo": null },
+        { "texto": "Tocar de manera intensa sin hacer venir", "tiempo": null },
+      ],
+      "mutuo": [
+        { "texto": "Hacer el 69", "tiempo": 120 },
+        { "texto": "Tocarse mutuamente", "tiempo": 180 }
+      ]
+    }
+  }
+}
